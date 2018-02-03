@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-__author__ = 'mmeyer'
+__author__ = 'whohlfeld'
 
 LOGGER = getLogger(__name__)
 
