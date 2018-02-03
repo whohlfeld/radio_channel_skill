@@ -20,7 +20,7 @@ LOGGER = getLogger(__name__)
 DLF_URL = 'http://st01.dlf.de/dlf/01/128/mp3/stream.mp3'
 DRADIO_URL = 'http://st02.dlf.de/dlf/02/128/mp3/stream.mp3'
 NOVA_URL = 'http://st03.dlf.de/dlf/03/128/mp3/stream.mp3'
-SWR3_URL = 'http://swr3.radio.de/'
+SWR3_URL = 'http://185.52.127.131/de/33009/mp3_128.mp3'
 
 URLS =[DLF_URL, DRADIO_URL, NOVA_URL, SWR3_URL]
 
