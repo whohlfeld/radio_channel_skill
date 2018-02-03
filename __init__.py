@@ -65,7 +65,7 @@ class RadioChannelSkill(MycroftSkill):
 
         swr3_intent = IntentBuilder("Swr3Intent"). \
             require("Swr3Keyword").require("PlayKeyword").build()
-        self.register_intent(nova_intent, self.handle_nova_intent)
+        self.register_intent(swr3_intent, self.handle_swr3_intent)
 
     '''
     
