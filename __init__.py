@@ -68,6 +68,7 @@ class DlfSkill(MycroftSkill):
         self.register_intent(nova_intent, self.handle_nova_intent)
 
     '''
+    
     def handle_whatson_dlf_intent(self, message):
         r = requests.get('http://www.deutschlandfunk.de')
         soup = BeautifulSoup(r.text)
