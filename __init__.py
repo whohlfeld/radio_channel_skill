@@ -21,6 +21,8 @@ DLF_URL = 'http://st01.dlf.de/dlf/01/128/mp3/stream.mp3'
 DRADIO_URL = 'http://st02.dlf.de/dlf/02/128/mp3/stream.mp3'
 NOVA_URL = 'http://st03.dlf.de/dlf/03/128/mp3/stream.mp3'
 
+URLS =[DLF_URL, DRADIO_URL, NOVA_URL]
+
 
 class DlfSkill(MycroftSkill):
     def __init__(self):
@@ -85,21 +87,21 @@ class DlfSkill(MycroftSkill):
 
     def handle_dlf_intent(self, message):
         if self.audioservice:
-            self.audioservice.play(DLF_URL, message.data['utterance'])
+            self.audioservice.play(URLS[0], message.data['utterance'])
         else:
-            self.process = play_mp3(DLF_URL)
+            self.process = play_mp3(URLS[0])
 
     def handle_dradio_intent(self, message):
         if self.audioservice:
-            self.audioservice.play(DRADIO_URL, message.data['utterance'])
+            self.audioservice.play(URLS[1], message.data['utterance'])
         else:
-            self.process = play_mp3(DRADIO_URL)
+            self.process = play_mp3(URLS[1])
 
     def handle_nova_intent(self, message):
         if self.audioservice:
-            self.audioservice.play(NOVA_URL, message.data['utterance'])
+            self.audioservice.play(URLS[2], message.data['utterance'])
         else:
-            self.process = play_mp3(NOVA_URL)
+            self.process = play_mp3(URLS[2])
 
     def stop(self):
         pass
