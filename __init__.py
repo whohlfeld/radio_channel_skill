@@ -25,15 +25,15 @@ SWR3_URL = 'http://swr3.radio.de/'
 URLS =[DLF_URL, DRADIO_URL, NOVA_URL, SWR3_URL]
 
 
-class DlfSkill(MycroftSkill):
+class RadioChannelSkill(MycroftSkill):
     def __init__(self):
-        super(DlfSkill, self).__init__(name="DlfSkill")
+        super(RadioChannelSkill, self).__init__(name="DlfSkill")
         self.audioservice = None
 
     def initialize(self):
         if AudioService:
             self.audioservice = AudioService(self.emitter)
-
+        '''
         whatson_dlf_intent = IntentBuilder("WhatsonDlfIntent").\
                          require("WhatsonKeyword").\
                          require("DlfKeyword").build()
@@ -50,7 +50,7 @@ class DlfSkill(MycroftSkill):
                               require("NovaKeyword").build()
         self.register_intent(whatson_nova_intent,
                              self.handle_whatson_nova_intent)
-
+        '''
         dlf_intent = IntentBuilder("DlfIntent").\
                      require("DlfKeyword").require("PlayKeyword").build()
         self.register_intent(dlf_intent, self.handle_dlf_intent)
@@ -123,4 +123,4 @@ class DlfSkill(MycroftSkill):
 
 
 def create_skill():
-    return DlfSkill()
+    return RadioChannelSkill()
