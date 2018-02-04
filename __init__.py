@@ -73,6 +73,10 @@ class RadioChannelSkill(MycroftSkill):
             require("NextKeyword").build()
         self.register_intent(next_intent, self.handle_next_intent)
 
+        previous_intent = IntentBuilder("PreviousIntent"). \
+            require("PreviousKeyword").build()
+        self.register_intent(previous_intent, self.handle_previous_intent)
+
     '''
     
     def handle_whatson_dlf_intent(self, message):
@@ -107,6 +111,7 @@ class RadioChannelSkill(MycroftSkill):
             POSITION = 0
         else:
             self.process = play_mp3(URLS[0])
+            POSITION = 0
 
     def handle_dradio_intent(self, message):
         if self.audioservice:
@@ -115,6 +120,7 @@ class RadioChannelSkill(MycroftSkill):
             POSITION = 1
         else:
             self.process = play_mp3(URLS[1])
+            POSITION = 1
 
     def handle_nova_intent(self, message):
         if self.audioservice:
@@ -123,6 +129,7 @@ class RadioChannelSkill(MycroftSkill):
             POSITION = 2
         else:
             self.process = play_mp3(URLS[2])
+            POSITION = 2
 
     def handle_energyhh_intent(self, message):
         if self.audioservice:
@@ -131,6 +138,7 @@ class RadioChannelSkill(MycroftSkill):
             POSITION = 3
         else:
             self.process = play_mp3(URLS[3])
+            POSITION = 3
 
     def handle_next_intent(self, message):
         global POSITION
@@ -139,6 +147,15 @@ class RadioChannelSkill(MycroftSkill):
             POSITION = POSITION + 1
         else:
             self.process = play_mp3(URLS[POSITION+1])
+
+    def handle_previous_intent(self, message):
+        global POSITION
+        if POSITION > 0:
+            if self.audioservice:
+                self.audioservice.play(URLS[POSITION-1], message.data['utterance'])
+                POSITION = POSITION -1
+            else:
+                self.process = play_mp3(URLS[POSITION+1])
 
     def stop(self):
         pass
