@@ -20,9 +20,11 @@ LOGGER = getLogger(__name__)
 DLF_URL = 'http://st01.dlf.de/dlf/01/128/mp3/stream.mp3'
 DRADIO_URL = 'http://st02.dlf.de/dlf/02/128/mp3/stream.mp3'
 NOVA_URL = 'http://st03.dlf.de/dlf/03/128/mp3/stream.mp3'
-SWR3_URL = 'http://185.52.127.131/de/33009/mp3_128.mp3'
+ENERGYHH_URL = 'http://185.52.127.131/de/33009/mp3_128.mp3'
 
-URLS =[DLF_URL, DRADIO_URL, NOVA_URL, SWR3_URL]
+URLS =[DLF_URL, DRADIO_URL, NOVA_URL, ENERGYHH_URL]
+
+POSITION = 0
 
 
 class RadioChannelSkill(MycroftSkill):
@@ -63,9 +65,13 @@ class RadioChannelSkill(MycroftSkill):
                       require("NovaKeyword").require("PlayKeyword").build()
         self.register_intent(nova_intent, self.handle_nova_intent)
 
-        swr3_intent = IntentBuilder("Swr3Intent"). \
-            require("Swr3Keyword").require("PlayKeyword").build()
-        self.register_intent(swr3_intent, self.handle_swr3_intent)
+        energyhh_intent = IntentBuilder("EnergyHHIntent"). \
+            require("EnergyHHKeyword").require("PlayKeyword").build()
+        self.register_intent(energyhh_intent, self.handle_energyhh_intent)
+
+        next_intent = IntentBuilder("NextIntent"). \
+            require("NextKeyword").build()
+        self.register_intent(next_intent, self.handle_next_intent)
 
     '''
     
@@ -97,26 +103,42 @@ class RadioChannelSkill(MycroftSkill):
     def handle_dlf_intent(self, message):
         if self.audioservice:
             self.audioservice.play(URLS[0], message.data['utterance'])
+            global POSITION
+            POSITION = 0
         else:
             self.process = play_mp3(URLS[0])
 
     def handle_dradio_intent(self, message):
         if self.audioservice:
             self.audioservice.play(URLS[1], message.data['utterance'])
+            global POSITION
+            POSITION = 1
         else:
             self.process = play_mp3(URLS[1])
 
     def handle_nova_intent(self, message):
         if self.audioservice:
             self.audioservice.play(URLS[2], message.data['utterance'])
+            global POSITION
+            POSITION = 2
         else:
             self.process = play_mp3(URLS[2])
 
-    def handle_swr3_intent(self, message):
+    def handle_energyhh_intent(self, message):
         if self.audioservice:
             self.audioservice.play(URLS[3], message.data['utterance'])
+            global POSITION
+            POSITION = 3
         else:
             self.process = play_mp3(URLS[3])
+
+    def handle_next_intent(self, message):
+        global POSITION
+        if self.audioservice:
+            self.audioservice.play(URLS[POSITION+1], message.data['utterance'])
+            POSITION = POSITION + 1
+        else:
+            self.process = play_mp3(URLS[POSITION+1])
 
     def stop(self):
         pass
