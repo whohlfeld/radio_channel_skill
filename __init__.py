@@ -54,19 +54,19 @@ class RadioChannelSkill(MycroftSkill):
                              self.handle_whatson_nova_intent)
         '''
         dlf_intent = IntentBuilder("DlfIntent").\
-                     require("DlfKeyword").require("PlayKeyword").build()
+                     require("DlfKeyword").require("PlayKeyword").require("RadioKeyword").build()
         self.register_intent(dlf_intent, self.handle_dlf_intent)
 
         dradio_intent = IntentBuilder("DradioIntent").\
-                        require("DradioKeyword").require("PlayKeyword").build()
+                        require("DradioKeyword").require("PlayKeyword").require("RadioKeyword").build()
         self.register_intent(dradio_intent, self.handle_dradio_intent)
 
         nova_intent = IntentBuilder("NovaIntent").\
-                      require("NovaKeyword").require("PlayKeyword").build()
+                      require("NovaKeyword").require("PlayKeyword").require("RadioKeyword").build()
         self.register_intent(nova_intent, self.handle_nova_intent)
 
         energyhh_intent = IntentBuilder("EnergyHHIntent"). \
-            require("EnergyHHKeyword").require("PlayKeyword").build()
+            require("EnergyHHKeyword").require("PlayKeyword").require("RadioKeyword").build()
         self.register_intent(energyhh_intent, self.handle_energyhh_intent)
 
         next_intent = IntentBuilder("NextIntent"). \
