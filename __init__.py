@@ -29,7 +29,7 @@ POSITION = 0
 
 class RadioChannelSkill(MycroftSkill):
     def __init__(self):
-        super(RadioChannelSkill, self).__init__(name="DlfSkill")
+        super(RadioChannelSkill, self).__init__(name="RadioChannelSkill")
         self.audioservice = None
 
     def initialize(self):
