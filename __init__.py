@@ -3,6 +3,7 @@ from os.path import dirname
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
+import random
 try:
     from mycroft.skills.audioservice import AudioService
 except:
@@ -35,6 +36,7 @@ class RadioChannelSkill(MycroftSkill):
     def initialize(self):
         if AudioService:
             self.audioservice = AudioService(self.emitter)
+
         '''
         whatson_dlf_intent = IntentBuilder("WhatsonDlfIntent").\
                          require("WhatsonKeyword").\
@@ -53,20 +55,25 @@ class RadioChannelSkill(MycroftSkill):
         self.register_intent(whatson_nova_intent,
                              self.handle_whatson_nova_intent)
         '''
+
+        random_intent = IntentBuilder("RandomIntent"). \
+            require("TurnKeyword").require("RadioKeyword").require("OnKeyword").build()
+        self.register_intent(random_intent, self.handle_random_intent)
+
         dlf_intent = IntentBuilder("DlfIntent").\
-                     require("DlfKeyword").require("PlayKeyword").require("RadioKeyword").build()
+                     require("DlfKeyword").require("TurnKeyword").require("RadioKeyword").require("OnKeyword").build()
         self.register_intent(dlf_intent, self.handle_dlf_intent)
 
         dradio_intent = IntentBuilder("DradioIntent").\
-                        require("DradioKeyword").require("PlayKeyword").require("RadioKeyword").build()
+                        require("DradioKeyword").require("TurnKeyword").require("RadioKeyword").require("OnKeyword").build()
         self.register_intent(dradio_intent, self.handle_dradio_intent)
 
         nova_intent = IntentBuilder("NovaIntent").\
-                      require("NovaKeyword").require("PlayKeyword").require("RadioKeyword").build()
+                      require("NovaKeyword").require("TurnKeyword").require("RadioKeyword").require("OnKeyword").build()
         self.register_intent(nova_intent, self.handle_nova_intent)
 
         energyhh_intent = IntentBuilder("EnergyHHIntent"). \
-            require("EnergyHHKeyword").require("PlayKeyword").require("RadioKeyword").build()
+            require("EnergyHHKeyword").require("TurnKeyword").require("RadioKeyword").require("OnKeyword").build()
         self.register_intent(energyhh_intent, self.handle_energyhh_intent)
 
         next_intent = IntentBuilder("NextIntent"). \
@@ -103,6 +110,16 @@ class RadioChannelSkill(MycroftSkill):
                           {"station": "dlf nova", "title": j['show']['title']})
 
     '''
+
+    def handle_random_intent(self, message):
+        nr = random.randint(0, 3)
+        if self.audioservice:
+            self.audioservice.play(URLS[nr], message.data['utterance'])
+            global POSITION
+            POSITION = nr
+        else:
+            self.process = play_mp3(URLS[nr])
+            POSITION = nr
 
     def handle_dlf_intent(self, message):
         if self.audioservice:
