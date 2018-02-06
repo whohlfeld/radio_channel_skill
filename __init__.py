@@ -76,6 +76,7 @@ class RadioChannelSkill(MycroftSkill):
             require("EnergyHHKeyword").require("TurnKeyword").require("RadioKeyword").require("OnKeyword").build()
         self.register_intent(energyhh_intent, self.handle_energyhh_intent)
 
+        '''
         next_intent = IntentBuilder("NextIntent"). \
             require("NextKeyword").build()
         self.register_intent(next_intent, self.handle_next_intent)
@@ -83,6 +84,7 @@ class RadioChannelSkill(MycroftSkill):
         previous_intent = IntentBuilder("PreviousIntent"). \
             require("PreviousKeyword").build()
         self.register_intent(previous_intent, self.handle_previous_intent)
+        '''
 
         change_intent = IntentBuilder("ChangeIntent"). \
             require("ChangeKeyword").build()
@@ -161,6 +163,8 @@ class RadioChannelSkill(MycroftSkill):
             self.process = play_mp3(URLS[3])
             POSITION = 3
 
+    '''
+    
     def handle_next_intent(self, message):
         global POSITION
         if self.audioservice:
@@ -177,6 +181,7 @@ class RadioChannelSkill(MycroftSkill):
                 POSITION = POSITION -1
             else:
                 self.process = play_mp3(URLS[POSITION+1])
+    '''
 
     def handle_change_intent(self, message):
         global POSITION
