@@ -68,9 +68,6 @@ class RadioChannelSkill(MycroftSkill):
     def handle_random_intent(self, message):
         nr = random.randint(0, 3)
         self.speak_dialog("currently", {"station": NAME[nr]})
-        mixer = Mixer()
-        level = 2
-        mixer.setvolume(self.level_to_volume(level))
         time.sleep(2)
         if self.audioservice:
             self.audioservice.play(URLS[nr], message.data['utterance'])
@@ -120,6 +117,8 @@ class RadioChannelSkill(MycroftSkill):
     def handle_change_intent(self, message):
         global POSITION
         self.speak_dialog("currently", {"station": NAME[POSITION+1]})
+        mixer = Mixer()
+        mixer.setvolume(2)
         time.sleep(2)
         if self.audioservice:
             self.audioservice.play(URLS[POSITION+1], message.data['utterance'])
