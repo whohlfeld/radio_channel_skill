@@ -1,14 +1,7 @@
-## Deutschlandfunk player
-Play Deutschlandfunk streams and query schedule
+## Radio Channel Skill
 
 ## Description 
-Play Deutschlandfunk streams and query schedule
+Play Radio Channels and switch between them
 
 ## Examples 
-* "Hey Mycroft, play dlf nova"
-* "Hey Mycroft, play dlf"
-* "Hey Mycroft, play dlf culture"
-* "Hey Mycroft, what's on dlf"
-
-## Credits 
-@ofosos
+* "Hey Mycroft, turn on the radio"
