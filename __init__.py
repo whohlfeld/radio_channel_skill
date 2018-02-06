@@ -122,7 +122,7 @@ class RadioChannelSkill(MycroftSkill):
         time.sleep(2)
         mixer.setvolume(8)
         if self.audioservice:
-            if POSITION <= 3:
+            if POSITION < 3:
                 self.audioservice.play(URLS[POSITION+1], message.data['utterance'])
                 POSITION = POSITION + 1
             else:
