@@ -72,7 +72,7 @@ class RadioChannelSkill(MycroftSkill):
         else:
             self.process = play_mp3(URLS[nr])
             POSITION = nr
-        self.speak_dialog("currently",{"station": NAME[nr]})
+        self.speak_dialog("Ok, playing",{"station": NAME[nr]})
 
     def handle_dlf_intent(self, message):
         if self.audioservice:
