@@ -84,6 +84,10 @@ class RadioChannelSkill(MycroftSkill):
             require("PreviousKeyword").build()
         self.register_intent(previous_intent, self.handle_previous_intent)
 
+        change_intent = IntentBuilder("ChangeIntent"). \
+            require("ChangeKeyword").build()
+        self.register_intent(change_intent, self.handle_change_intent)
+
     '''
     
     def handle_whatson_dlf_intent(self, message):
@@ -173,6 +177,14 @@ class RadioChannelSkill(MycroftSkill):
                 POSITION = POSITION -1
             else:
                 self.process = play_mp3(URLS[POSITION+1])
+
+    def handle_change_intent(self, message):
+        global POSITION
+        if self.audioservice:
+            self.audioservice.play(URLS[POSITION+1], message.data['utterance'])
+            POSITION = POSITION + 1
+        else:
+            self.process = play_mp3(URLS[POSITION+1])
 
     def stop(self):
         pass
