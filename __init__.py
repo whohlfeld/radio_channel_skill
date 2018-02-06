@@ -40,7 +40,6 @@ class RadioChannelSkill(MycroftSkill):
         if AudioService:
             self.audioservice = AudioService(self.emitter)
 
-
         random_intent = IntentBuilder("RandomIntent"). \
             require("TurnKeyword").require("RadioKeyword").require("OnKeyword").build()
         self.register_intent(random_intent, self.handle_random_intent)
