@@ -3,7 +3,6 @@ from os.path import dirname
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
-from alsaaudio import Mixer
 import random
 import time
 try:
@@ -116,10 +115,7 @@ class RadioChannelSkill(MycroftSkill):
     def handle_change_intent(self, message):
         global POSITION
         self.speak_dialog("currently", {"station": NAME[POSITION+1]})
-        mixer = Mixer()
-        mixer.setvolume(2)
         time.sleep(2)
-        mixer.setvolume(8)
         if self.audioservice:
             if POSITION < 3:
                 self.audioservice.play(URLS[POSITION+1], message.data['utterance'])
