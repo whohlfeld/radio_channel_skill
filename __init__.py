@@ -121,8 +121,12 @@ class RadioChannelSkill(MycroftSkill):
         mixer.setvolume(2)
         time.sleep(2)
         if self.audioservice:
-            self.audioservice.play(URLS[POSITION+1], message.data['utterance'])
-            POSITION = POSITION + 1
+            if POSITION <= 3:
+                self.audioservice.play(URLS[POSITION+1], message.data['utterance'])
+                POSITION = POSITION + 1
+            else:
+                self.audioservice.play(URLS[0], message.data['utterance'])
+                POSITION = 0
         else:
             self.process = play_mp3(URLS[POSITION+1])
 
