@@ -110,7 +110,6 @@ class RadioChannelSkill(MycroftSkill):
             self.process = play_mp3(URLS[3])
             POSITION = 3
 
-
     def handle_change_intent(self, message):
         global POSITION
         if self.audioservice:
