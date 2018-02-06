@@ -4,6 +4,7 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 import random
+import time
 try:
     from mycroft.skills.audioservice import AudioService
 except:
@@ -65,6 +66,8 @@ class RadioChannelSkill(MycroftSkill):
 
     def handle_random_intent(self, message):
         nr = random.randint(0, 3)
+        self.speak_dialog("currently", {"station": NAME[nr]})
+        time.sleep(1)
         if self.audioservice:
             self.audioservice.play(URLS[nr], message.data['utterance'])
             global POSITION
@@ -72,7 +75,7 @@ class RadioChannelSkill(MycroftSkill):
         else:
             self.process = play_mp3(URLS[nr])
             POSITION = nr
-        self.speak_dialog("currently",{"station": NAME[nr]})
+
 
     def handle_dlf_intent(self, message):
         if self.audioservice:
