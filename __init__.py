@@ -129,7 +129,11 @@ class RadioChannelSkill(MycroftSkill):
                 self.audioservice.play(URLS[0], message.data['utterance'])
                 POSITION = 0
         else:
-            self.process = play_mp3(URLS[POSITION+1])
+            if POSITION < 3:
+                self.process = play_mp3(URLS[POSITION+1])
+            else:
+                self.process = play_mp3(URLS[0])
+
 
     def stop(self):
         pass
